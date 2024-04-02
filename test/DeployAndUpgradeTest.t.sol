@@ -27,6 +27,10 @@ contract DeployAndUpgradeTest is Test {
         address proxy = upgradeBox.upgradeBox(address(boxV1), address(newBox));
 
         uint256 expectedValue = 2;
-        assertEq(expectedValue, BoxV2(proxy).version());
+        assertEq(expectedValue, BoxV1(proxy).version());
+
+        uint256 newValue = 42;
+        BoxV2(proxy).setNumber(newValue);
+        assertEq(newValue, BoxV1(proxy).getNumber());
     }
 }
